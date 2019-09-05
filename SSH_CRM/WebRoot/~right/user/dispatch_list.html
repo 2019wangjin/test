@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="../../css/style.css" rel="stylesheet" type="text/css">
+		<script src="../../script/common.js"></script>
+		
+	</head>
+  <body>
+    <div class="page_title">权限管理 > 用户管理 > 分配角色</div>
+    <form action="/right.do" method="post">
+    	<div class="button_bar">
+	   		<button class="common_button" onclick="help('');">帮助</button>
+			<button class="common_button" onclick="add();">查询</button>
+	   	</div>
+	   	<table class="query_form_table">
+	   		<tr>
+	   			<th>
+	   				用户名
+	   			</th>
+	   			<td>
+	   				<input />
+	   			</td>
+	   			<th>
+	   				是否禁用
+	   			</th>
+	   			<td>
+	   				<select property="sysUser.usrFlag">
+	   					<option value="1">正常</option>
+	   				</select>
+	   			</td>
+	   		</tr>
+	   	</table>
+	   	<br/>
+	   	<table class="data_list_table">
+	   		<tr>
+	   			<th>编号</th>
+	   			<th>用户名</th>
+	   			<th>角色</th>
+	   			<th>状态</th>
+	   			<th>操作</th>
+	   		</tr>
+	   		
+	   		<tr>
+	   			<td class="list_data_text"></td>
+	   			<td class="list_data_text"></td>
+	   			<td class="list_data_text"></td>
+	   			<td class="list_data_text">
+	   				
+	   			</td>
+	   			<td class="list_data_op">
+	   				<img onclick="to('right.do?o=toDispatch&userId=${sysUser.usrId}');" title="指派" src="html/images/bt_linkman.gif" class="op_button" />
+	   			</td>
+	   		</tr>
+	   		
+	   		<tr>
+		<th colspan="7" class="pager">
+<div class="pager">
+	共1条记录 每页
+	<input size="2">条
+	第1页/共1页
+	<a href="right.do?o=dispatchList&param=firstPage">第一页</a>
+	<a href="right.do?o=dispatchList&param=prePage">上一页</a>
+	<a href="right.do?o=dispatchList&param=nextPage">下一页</a>
+	<a href="right.do?o=dispatchList&param=lastPage">最后一页</a>
+	转到
+	<input size="2" />页
+	<button width="20" onclick="add();">GO</button>
+</div>
+		</th>
+	</tr>
+	   	</table>
+    </form>
+  </body>
+</html>

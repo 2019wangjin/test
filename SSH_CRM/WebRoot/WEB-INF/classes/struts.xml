@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="ssh" namespace="/" extends="struts-default">
+		<interceptors>
+			<!-- 配置拦截器，自定义了拦截器之后，默认的会失效 -->
+			<interceptor name="LoginInterceptor" class="interceptor.LoginInterceptor">
+				<!-- 这里面设置不进行拦截的action方法 -->
+				<param name="excludeMethods">login,ajaxAddUser,ajaxLogin</param>
+			</interceptor>
+			<!-- 配置拦截栈，将自定义的拦截器和系统默认拦截器归为一起 -->
+			<interceptor-stack name="mystack">
+				<interceptor-ref name="LoginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<!-- 配置默认action，用来跳转页面 -->
+		<action name="base" class="BaseAction">
+			<!-- 引用自定义拦截栈 -->
+			<interceptor-ref name="mystack"/>
+			<!-- 跳转登录页面 -->
+			<result name="toLogin">login.html</result>
+			<!-- 跳转登录失败 -->
+			<result name="LoginFial">loginfial.html</result>
+			<!-- 去首页 -->
+			<result name="toIndex" type="freemarker">index.html</result>
+		</action>
+		
+		
+		<action name="user" class="userAction">
+			<!-- 引用自定义拦截栈 -->
+			<interceptor-ref name="mystack"/>
+			<!-- 登录成功就跳转到自定义的跳到首页的方法，里面的返回结果是下面跳转到首页 -->
+			<result name="LoginFial">base!LoginFial</result>
+			
+			<!-- 去首页 -->
+			<result name="LoginSuccess" type="redirect">user!toIndex</result>
+			<result name="toIndex" type="freemarker">index.html</result>
+			<!-- 跳转登录页面 -->
+			<result name="toLogin">login.html</result>
+			
+			<!-- 条件查询返回 -->
+			<result name="findByAll" type="freemarker">~right/user/list.html</result>
+		</action>
+		
+		<action name="role" class="RoleAction">
+		</action>
+		
+	</package>
+</struts>    
+
+
+

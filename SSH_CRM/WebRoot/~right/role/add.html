@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="../../css/style.css" rel="stylesheet" type="text/css">
+
+	</head>
+	<body>
+		<div class="page_title">
+			权限管理 > 用户管理 > 系统角色管理 > 添加角色
+		</div>
+		<form action="/role" method="post">
+			<div class="button_bar">
+				<button class="common_button" onclick="help('');">
+					帮助
+				</button>
+				<button class="common_button" onclick="back();">
+					返回
+				</button>
+				<button class="common_button" onclick="add();">
+					保存
+				</button>
+			</div>
+			<table class="query_form_table">
+				<tr>
+					<th>
+						编号
+					</th>
+					<td>
+						<input type="text" disabled="true" size="20">
+					</td>
+					<th>
+						角色名
+					</th>
+					<td>
+						<input ></input>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						角色描述
+					</th>
+					<td>
+						<input ></input>
+					</td>
+					<th>
+						状态
+					</th>
+					<td>
+						<select>
+							<option>正常</option>
+						</select>
+						
+					</td>
+				</tr>
+			</table>
+			<script>
+				build_validate("sysRole.roleName","角色名不能为空","Limit","1","50");
+				build_validate("sysRole.roleDesc","角色描述不能为空","Limit","1","50");
+			</script>
+		</html:form>
+	</body>
+</html>

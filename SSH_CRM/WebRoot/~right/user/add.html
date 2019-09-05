@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link href="../../css/style.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="../../script/jquery-1.4.4.min.js"></script>
+		<script src="../../script/common.js"></script>
+		
+		
+	</head>
+  
+  <body>
+   	<div class="page_title">权限管理 > 用户管理 > 添加系统用户</div>
+   	<form id="addUserForm" >
+   		
+	   	<div class="button_bar">
+	   		<button class="common_button" onclick="help('');">帮助</button>
+	   		<button class="common_button" onclick="back();">返回</button>
+			<input id="addUser"  class="common_button"  value="保存" type="button" >
+	   	</div>
+	   	<table class="query_form_table">
+	   		<tr>
+	   			<th>编号</th>
+	   			<td>
+	   				<input type="text" disabled="true" size="20">
+	   			</td>
+	   			<th>用户名</th>
+	   			<td>
+	   				<input name="u.usrName" size="20">
+	   			</td>
+	   		</tr>
+	   		<tr>
+	   			<th>密码</th>
+	   			<td>
+	   				<input name="u.usrPassword" size="20">
+	   			</td>
+	   			<th>
+	   				状态
+	   			</th>
+	   			<td>
+	   				<select name="u.usrFlag">
+	   						<option value="1">正常</option>
+	   						<option value="2">冻结</option>
+	   				</select>
+	   				
+	   			</td>
+	   		</tr>
+	   		<tr>
+	   			<th>角色</th>
+	   			<td>
+	   					<select name="u.sysRole.roleId" id="rolelist">
+	   					
+	   					</select>
+	   			</td>
+	   		</tr>
+	   	</table>
+	   	<script>
+	   			
+	   	$(function(){
+ 					$.get(
+ 						"../../role!ajaxFindAll",
+ 						function(result){
+ 							result = result.data;
+ 							//遍历结果
+ 							result.forEach(function(role){
+ 								var content ="";
+ 								content +="<option value="+role.roleId +" >"
+ 								content +=role.roleName;
+ 								
+ 								content +="</option>"
+ 							
+ 								$("#rolelist").append(content);
+ 							})
+ 						},
+ 						"json"
+ 					)
+ 					
+ 						//ajax注册
+						$("#addUser").click(function(){
+							$.post(
+								"../../user!ajaxAddUser",
+								$("#addUserForm").serialize(),
+								function(result)
+								{
+									alert(result.message);
+									if(result.code == 200)
+									{
+										//location.href="base!toIndex";
+									}
+								},
+								"json"
+							)
+						})
+	   	})
+		</script>
+   	</form>
+  </body>
+</html>
+

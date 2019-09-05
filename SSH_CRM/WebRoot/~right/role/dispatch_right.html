@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		
+		<link href="../../css/style.css" rel="stylesheet" type="text/css">
+		<!--导入ztree的css -->
+		<link rel="stylesheet" href="../../css/zTreeStyle/zTreeStyle.css" type="text/css">
+		<!-- 导入jquery -->
+		<script type="text/javascript" src="../../script/jquery-1.4.4.min.js"></script>
+		<!-- 导入ztree-->
+		<script type="text/javascript" src="../../script/jquery.ztree.all.js"></script>
+	</head>
+	<body>
+		<div class="page_title">
+		权限管理 > 角色管理 > 分配权限 
+		</div>
+		<!-- 创建ztreehtml控件 -->
+		<ul id="tree" class="ztree"></ul>
+		<button id="btnSubmit" >获取选项</button>
+		<script>
+			//ztree的配置文件
+			var setting = {
+				//配置元数据
+				check: {
+					enable:true
+				},
+				data: {
+					simpleData: {
+						enable:true,
+						idKey: "id", // 节点编号的key
+						pIdKey: "pId"// 父类节点的key
+						
+					}
+				}
+			};
+			
+			//显示的数据
+			//id时当前节点的编号
+			//pId时父节点的编号
+			//name:当前节点显示的文字
+			//open:是否打开
+			var zNodes =[
+				{id:1, pId:0, name:"营销关系", open:true},
+				{id:114, pId:1, name:"销售机会管理"},
+				{id:115, pId:1, name:"客户开发"},
+				{id:2, pId:0, name:"客户管理", open:false},
+				{id:205, pId:2, name:"客户信息管理"}
+			];
+			var treeObject;
+			$(document).ready(function(){
+				//找到控件
+				var t = $("#tree");
+				//初始化tree结构
+				treeObject = $.fn.zTree.init(t, setting, zNodes);
+				
+				$("#btnSubmit").click(function(){
+						
+						var nodes = treeObject.getCheckedNodes(true);
+						
+						//alert(JSON.stringify(nodes));
+						var array =[];
+						nodes.forEach(function(node){
+							var n ={
+								id: node.id,
+								pid: (node.pId==null)? 0:node.pId,
+								name: node.name
+							}
+							
+							array.push(n)
+						})
+						
+						alert(JSON.stringify(array));
+				});
+			});
+			
+		</script>
+	</body>
+</html>
